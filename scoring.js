@@ -102,10 +102,10 @@ function check_word() {
            ischecked = true;
     if(document.forms[0].input.value.toLowerCase() == word) {
          iscorrect = true;
-         document.images['ASLalphabet'].src="images/goodjob.png";
+         document.images['ASLalphabet'].src = "images/goodjob.png";
          playing = false;
          score++;
-         document.getElementById('scoretxt').innerHTML = score + '';
+         document.getElementById('scoretxt').innerHTML = String(score);
      } else {
          if(document.forms[0].input.value == "") {
              change_speed2();
@@ -113,7 +113,7 @@ function check_word() {
              document.images['ASLalphabet'].src = "images/tryagain.png";
              playing = false;
              score--;
-             document.getElementById('scoretxt').innerHTML = score + '';
+             document.getElementById('scoretxt').innerHTML = String(score);
          }
      }
      document.asl_words.input.select();
