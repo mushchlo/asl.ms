@@ -1,23 +1,23 @@
-var word = ""; 
-var i = 0; 
-var j = 0; 
-var speed = new Array(); 
+var word = "";
+var i = 0;
+var j = 0;
+var speed = new Array();
 var used_words = new Array();
 var score = 0;
-// boolean switches to control playback 
-var newpage = false; // autostart first word (false = don't autostart) 
-var playing; 
-var iscorrect; 
-var ischecked; 
-speed[0] = 1000; // 1 second 
-speed[1] = 666; // 2/3 second 
-speed[2] = 333; // 1/3 second 
-speed[3] = 200; // 1/5 second 
-// default speed is medium 
-speed_val = 1; 
-var new_speed = speed[speed_val]; 
-length_lim = 99; 
-var all_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+// boolean switches to control playback
+var newpage = false; // autostart first word (false = don't autostart)
+var playing;
+var iscorrect;
+var ischecked;
+speed[0] = 1000; // 1 second
+speed[1] = 666; // 2/3 second
+speed[2] = 333; // 1/3 second
+speed[3] = 200; // 1/5 second
+// default speed is medium
+speed_val = 1;
+var new_speed = speed[speed_val];
+length_lim = 99;
+var all_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 function count_available(wordlist, maxlength) {
 // returns the number of words with word length <= maxlength
 // assumes wordlist is sorted by length, shortest words first
@@ -39,93 +39,93 @@ function clear_used() {
 words.sort(sortWordlength);
 var maxindex = count_available(words, length_lim);
 
-function update_letter() { 
-	if(playing == false) { return; } 
-	if(i >= word.length) { 
-		document.images['ASLalphabet'].src="images/blank.gif"; 
-		return; 
-	} 
-	if(all_letters.indexOf(word.charAt(i)) >= 0) { 
-		// check for double letter 
-		if(word.charAt(i) == word.charAt(i-1)) { 
-			eval("document.images['ASLalphabet'].src='images/" + word.charAt(i) + word.charAt(i++) + ".gif'"); 
-		} else { 
-			eval("document.images['ASLalphabet'].src='images/" + word.charAt(i++) + ".gif'"); 
-		} 
-	} else { 
-		document.images['ASLalphabet'].src="images/blank.gif"; 
-		i++;		 
-	} 
-	setTimeout("update_letter()", new_speed); 
-} 
-function change_speed(speed_val_arg) { 
-	new_speed = speed[speed_val_arg]; 
-//	alert(new_speed); 
-	change_speed2(); 
-} 
-function change_speed2() { 
-	playing = true; 
-	iscorrect = false; 
-	ischecked = false; 
-	i = 0; 
-	document.asl_words.input.focus(); 
-//	window.setTimeout("update_letter()", new_speed); 
-	update_letter(); 
-} 
-function set_speed(speed_val_arg) { 
-	if (speed_val_arg == 0) { 
-		new_speed *= 1.3; 
-	} else 
-	if (speed_val_arg == 1) { 
-		new_speed /= 1.3; 
-	} 
-//alert(new_speed); 
-	change_speed2(); 
-} 
-function set_length_lim(length_lim_arg) { 
-	//alert(length_lim_arg); 
-	playing = true; 
-	iscorrect = false; 
-	ischecked = false; 
-	i = 0; 
-	length_lim = length_lim_arg; 
+function update_letter() {
+	if(playing == false) { return; }
+	if(i >= word.length) {
+		document.images['ASLalphabet'].src="images/blank.gif";
+		return;
+	}
+	if(all_letters.indexOf(word.charAt(i)) >= 0) {
+		// check for double letter
+		if(word.charAt(i) == word.charAt(i-1)) {
+			eval("document.images['ASLalphabet'].src='images/" + word.charAt(i) + word.charAt(i++) + ".gif'");
+		} else {
+			eval("document.images['ASLalphabet'].src='images/" + word.charAt(i++) + ".gif'");
+		}
+	} else {
+		document.images['ASLalphabet'].src="images/blank.gif";
+		i++;
+	}
+	setTimeout("update_letter()", new_speed);
+}
+function change_speed(speed_val_arg) {
+	new_speed = speed[speed_val_arg];
+//	alert(new_speed);
+	change_speed2();
+}
+function change_speed2() {
+	playing = true;
+	iscorrect = false;
+	ischecked = false;
+	i = 0;
+	document.asl_words.input.focus();
+//	window.setTimeout("update_letter()", new_speed);
+	update_letter();
+}
+function set_speed(speed_val_arg) {
+	if (speed_val_arg == 0) {
+		new_speed *= 1.3;
+	} else
+	if (speed_val_arg == 1) {
+		new_speed /= 1.3;
+	}
+//alert(new_speed);
+	change_speed2();
+}
+function set_length_lim(length_lim_arg) {
+	//alert(length_lim_arg);
+	playing = true;
+	iscorrect = false;
+	ischecked = false;
+	i = 0;
+	length_lim = length_lim_arg;
 	maxindex = count_available(words, length_lim);
 	clear_used();
-	document.asl_words.input.focus(); 
-	new_word(); 
-} 
-function check_word() { 
-     if(ischecked == true) { 
-         if(iscorrect == true) { 
-             new_word(); 
-         } else { 
-             change_speed2(); 
-         } 
-         return false; 
-     } 
-           ischecked = true; 
+	document.asl_words.input.focus();
+	new_word();
+}
+function check_word() {
+     if(ischecked == true) {
+         if(iscorrect == true) {
+             new_word();
+         } else {
+             change_speed2();
+         }
+         return false;
+     }
+           ischecked = true;
     if(document.forms[0].input.value.toLowerCase() == word) {
-     
-         //alert("Correct: nice job!"); 
-         iscorrect = true; 
-         document.images['ASLalphabet'].src="images/goodjob.png"; 
+
+         //alert("Correct: nice job!");
+         iscorrect = true;
+         document.images['ASLalphabet'].src="images/goodjob.png";
          playing = false;
          score++;
          document.getElementById('scoretxt').innerHTML = score+'';
-     } else { 
-         if(document.forms[0].input.value == "") { 
-             change_speed2(); 
-         } else { 
-             //alert("Sorry: try again!"); 
-             document.images['ASLalphabet'].src="images/tryagain.png"; 
+     } else {
+         if(document.forms[0].input.value == "") {
+             change_speed2();
+         } else {
+             //alert("Sorry: try again!");
+             document.images['ASLalphabet'].src="images/tryagain.png";
              playing = false;
              score--;
              document.getElementById('scoretxt').innerHTML = score+'';
-         } 
-     }  
-     document.asl_words.input.select(); 
-     return false; 
- } 
+         }
+     }
+     document.asl_words.input.select();
+     return false;
+ }
 function new_word() {
     var isUsed = false;
     var k;
