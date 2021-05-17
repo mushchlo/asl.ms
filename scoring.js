@@ -60,7 +60,6 @@ function update_letter() {
 }
 function change_speed(speed_val_arg) {
 	new_speed = speed[speed_val_arg];
-//	alert(new_speed);
 	change_speed2();
 }
 function change_speed2() {
@@ -69,7 +68,6 @@ function change_speed2() {
 	ischecked = false;
 	i = 0;
 	document.asl_words.input.focus();
-//	window.setTimeout("update_letter()", new_speed);
 	update_letter();
 }
 function set_speed(speed_val_arg) {
@@ -83,7 +81,6 @@ function set_speed(speed_val_arg) {
 	change_speed2();
 }
 function set_length_lim(length_lim_arg) {
-	//alert(length_lim_arg);
 	playing = true;
 	iscorrect = false;
 	ischecked = false;
@@ -105,8 +102,6 @@ function check_word() {
      }
            ischecked = true;
     if(document.forms[0].input.value.toLowerCase() == word) {
-
-         //alert("Correct: nice job!");
          iscorrect = true;
          document.images['ASLalphabet'].src="images/goodjob.png";
          playing = false;
@@ -116,7 +111,6 @@ function check_word() {
          if(document.forms[0].input.value == "") {
              change_speed2();
          } else {
-             //alert("Sorry: try again!");
              document.images['ASLalphabet'].src="images/tryagain.png";
              playing = false;
              score--;
