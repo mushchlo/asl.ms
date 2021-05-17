@@ -42,7 +42,9 @@ words.sort(sortWordlength);
 var maxindex = count_available(words, length_lim);
 
 function update_letter() {
-	if(playing == false) { return; }
+	if(!playing) {
+		return;
+	}
 	if(i >= word.length) {
 		document.images['ASLalphabet'].src = "images/blank.gif";
 		return;
@@ -98,15 +100,15 @@ function set_length_lim(length_lim_arg) {
 }
 
 function check_word() {
-     if(ischecked == true) {
-         if(iscorrect == true) {
+     if(ischecked) {
+         if(iscorrect) {
              new_word();
          } else {
              change_speed2();
          }
          return false;
      }
-           ischecked = true;
+    ischecked = true;
     if(document.forms[0].input.value.toLowerCase() == word) {
          iscorrect = true;
          document.images['ASLalphabet'].src = "images/goodjob.png";
@@ -143,7 +145,7 @@ function new_word() {
                 }
             }
         }
-        if (isUsed == false) {
+        if (!isUsed) {
             used_words[j++] = randNum;
             word = words[randNum];
             document.forms[0].input.value = "";
@@ -151,7 +153,7 @@ function new_word() {
             break;
         }
     }
-    if (newpage == true) {
+    if (newpage) {
         newpage = false;
         return;
     } else {
