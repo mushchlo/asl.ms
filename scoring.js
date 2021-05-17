@@ -18,9 +18,10 @@ speed_val = 1;
 var new_speed = speed[speed_val];
 length_lim = 99;
 var all_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-function count_available(wordlist, maxlength) {
+
 // returns the number of words with word length <= maxlength
 // assumes wordlist is sorted by length, shortest words first
+function count_available(wordlist, maxlength) {
 	for (var i = 0; i < wordlist.length && wordlist[i].length <= maxlength; i++) {}
 	return Math.max(0, i - 1);
 }
@@ -34,6 +35,7 @@ function clear_used() {
 	used_words = new Array();
 	j = 0;
 }
+
 // sort by word length
 // if you don't like the delay then sort the list in the words.js file and remove this sort
 words.sort(sortWordlength);
@@ -58,10 +60,12 @@ function update_letter() {
 	}
 	setTimeout("update_letter()", new_speed);
 }
+
 function change_speed(speed_val_arg) {
 	new_speed = speed[speed_val_arg];
 	change_speed2();
 }
+
 function change_speed2() {
 	playing = true;
 	iscorrect = false;
@@ -70,6 +74,7 @@ function change_speed2() {
 	document.asl_words.input.focus();
 	update_letter();
 }
+
 function set_speed(speed_val_arg) {
 	if (speed_val_arg == 0) {
 		new_speed *= 1.3;
@@ -79,6 +84,7 @@ function set_speed(speed_val_arg) {
 	}
 	change_speed2();
 }
+
 function set_length_lim(length_lim_arg) {
 	playing = true;
 	iscorrect = false;
@@ -90,6 +96,7 @@ function set_length_lim(length_lim_arg) {
 	document.asl_words.input.focus();
 	new_word();
 }
+
 function check_word() {
      if(ischecked == true) {
          if(iscorrect == true) {
@@ -118,7 +125,8 @@ function check_word() {
      }
      document.asl_words.input.select();
      return false;
- }
+}
+
 function new_word() {
     var isUsed = false;
     var k;
