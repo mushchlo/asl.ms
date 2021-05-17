@@ -21,18 +21,18 @@ var all_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 function count_available(wordlist, maxlength) {
 // returns the number of words with word length <= maxlength
 // assumes wordlist is sorted by length, shortest words first
-	for (var i=0; i<wordlist.length && wordlist[i].length <= maxlength; i++) {}
-	return Math.max(0, i-1);
+	for (var i = 0; i < wordlist.length && wordlist[i].length <= maxlength; i++) {}
+	return Math.max(0, i - 1);
 }
 
-function sortWordlength(a,b) {
+function sortWordlength(a, b) {
 	return a.length - b.length;
 }
 
 function clear_used() {
 	delete used_words;
 	used_words = new Array();
-	j=0;
+	j = 0;
 }
 // sort by word length
 // if you don't like the delay then sort the list in the words.js file and remove this sort
@@ -42,18 +42,18 @@ var maxindex = count_available(words, length_lim);
 function update_letter() {
 	if(playing == false) { return; }
 	if(i >= word.length) {
-		document.images['ASLalphabet'].src="images/blank.gif";
+		document.images['ASLalphabet'].src = "images/blank.gif";
 		return;
 	}
 	if(all_letters.indexOf(word.charAt(i)) >= 0) {
 		// check for double letter
-		if(word.charAt(i) == word.charAt(i-1)) {
+		if(word.charAt(i) == word.charAt(i - 1)) {
 			eval("document.images['ASLalphabet'].src='images/" + word.charAt(i) + word.charAt(i++) + ".gif'");
 		} else {
 			eval("document.images['ASLalphabet'].src='images/" + word.charAt(i++) + ".gif'");
 		}
 	} else {
-		document.images['ASLalphabet'].src="images/blank.gif";
+		document.images['ASLalphabet'].src = "images/blank.gif";
 		i++;
 	}
 	setTimeout("update_letter()", new_speed);
@@ -77,7 +77,6 @@ function set_speed(speed_val_arg) {
 	if (speed_val_arg == 1) {
 		new_speed /= 1.3;
 	}
-//alert(new_speed);
 	change_speed2();
 }
 function set_length_lim(length_lim_arg) {
@@ -106,15 +105,15 @@ function check_word() {
          document.images['ASLalphabet'].src="images/goodjob.png";
          playing = false;
          score++;
-         document.getElementById('scoretxt').innerHTML = score+'';
+         document.getElementById('scoretxt').innerHTML = score + '';
      } else {
          if(document.forms[0].input.value == "") {
              change_speed2();
          } else {
-             document.images['ASLalphabet'].src="images/tryagain.png";
+             document.images['ASLalphabet'].src = "images/tryagain.png";
              playing = false;
              score--;
-             document.getElementById('scoretxt').innerHTML = score+'';
+             document.getElementById('scoretxt').innerHTML = score + '';
          }
      }
      document.asl_words.input.select();
@@ -130,7 +129,7 @@ function new_word() {
         if (used_words.length >= maxindex) {
             clear_used();
         } else {
-            for (k=0; k < used_words.length; k++) {
+            for (k = 0; k < used_words.length; k++) {
                 if (randNum == used_words[k]) {
                     isUsed = true;
                 }
