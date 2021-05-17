@@ -21,18 +21,18 @@ var all_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 function count_available(wordlist, maxlength) {
 // returns the number of words with word length <= maxlength
 // assumes wordlist is sorted by length, shortest words first
-for (var i=0; i<wordlist.length && wordlist[i].length <= maxlength; i++) {}
-return Math.max(0, i-1);
+	for (var i=0; i<wordlist.length && wordlist[i].length <= maxlength; i++) {}
+	return Math.max(0, i-1);
 }
 
 function sortWordlength(a,b) {
-return a.length - b.length;
+	return a.length - b.length;
 }
 
 function clear_used() {
-delete used_words;
-used_words = new Array();
-j=0;
+	delete used_words;
+	used_words = new Array();
+	j=0;
 }
 // sort by word length
 // if you don't like the delay then sort the list in the words.js file and remove this sort
@@ -60,7 +60,7 @@ function update_letter() {
 } 
 function change_speed(speed_val_arg) { 
 	new_speed = speed[speed_val_arg]; 
-//alert(new_speed); 
+//	alert(new_speed); 
 	change_speed2(); 
 } 
 function change_speed2() { 
@@ -89,8 +89,8 @@ function set_length_lim(length_lim_arg) {
 	ischecked = false; 
 	i = 0; 
 	length_lim = length_lim_arg; 
-maxindex = count_available(words, length_lim);
-clear_used()
+	maxindex = count_available(words, length_lim);
+	clear_used();
 	document.asl_words.input.focus(); 
 	new_word(); 
 } 
@@ -121,7 +121,6 @@ function check_word() {
              playing = false;
              score = score - 1;
              document.getElementById('scoretxt').innerHTML = score+'';
-
          } 
      }  
      document.asl_words.input.select(); 
