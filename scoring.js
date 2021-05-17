@@ -74,10 +74,10 @@ function change_speed2() {
 } 
 function set_speed(speed_val_arg) { 
 	if (speed_val_arg == 0) { 
-		new_speed = new_speed * 1.3; 
+		new_speed *= 1.3; 
 	} else 
 	if (speed_val_arg == 1) { 
-		new_speed = new_speed / 1.3; 
+		new_speed /= 1.3; 
 	} 
 //alert(new_speed); 
 	change_speed2(); 
@@ -110,7 +110,7 @@ function check_word() {
          iscorrect = true; 
          document.images['ASLalphabet'].src="images/goodjob.png"; 
          playing = false;
-         score = score+1;
+         score++;
          document.getElementById('scoretxt').innerHTML = score+'';
      } else { 
          if(document.forms[0].input.value == "") { 
@@ -119,7 +119,7 @@ function check_word() {
              //alert("Sorry: try again!"); 
              document.images['ASLalphabet'].src="images/tryagain.png"; 
              playing = false;
-             score = score - 1;
+             score--;
              document.getElementById('scoretxt').innerHTML = score+'';
          } 
      }  
