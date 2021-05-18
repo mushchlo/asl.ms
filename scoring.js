@@ -108,18 +108,12 @@ function set_length_lim(length_lim_arg)
 
 function check_word()
 {
-	if(ischecked){
-		if(iscorrect){
-			new_word();
-		} else{
-			play();
-		}
+	if(ischecked && iscorrect){
+		new_word();
 		return false;
 	}
-
-	if(document.forms[0].input.value == ""){
+	if(document.forms[0].input.value == "")
 		return false;
-	}
 
 	if(document.forms[0].input.value.toLowerCase() == word){
 		iscorrect = true;
@@ -167,7 +161,7 @@ function new_word()
 	if(newpage){
 		newpage = false;
 		return;
-	} else{
+	} else {
 		ischecked = false;
 		iscorrect = false;
 		play();
