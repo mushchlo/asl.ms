@@ -119,7 +119,7 @@ function check_word()
 		iscorrect = true;
 		document.images['ASLalphabet'].src = "images/goodjob.png";
 		score++;
-	} else{
+	} else {
 		iscorrect = false;
 		document.images['ASLalphabet'].src = "images/tryagain.png";
 		score--;
@@ -146,11 +146,7 @@ function new_word()
 
 		if (used_words.length >= maxindex)
 			clear_used();
-		else
-			for (k = 0; k < used_words.length; k++)
-				if (randNum == used_words[k])
-					isUsed = true;
-		if(!isUsed){
+		if(!used_words.includes(randNum)){
 			used_words.push(randNum);
 			word = words[randNum].toLowerCase();
 			document.asl_words.input.focus();
