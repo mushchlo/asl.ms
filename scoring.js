@@ -4,11 +4,13 @@ var j = 0;
 var speed = new Array();
 var used_words = new Array();
 var score = 0;
+
 // boolean switches to control playback
 var newpage = false; // autostart first word (false = don't autostart)
 var playing;
 var iscorrect;
 var ischecked;
+
 speed[0] = 1000; // 1 second
 speed[1] = 666; // 2/3 second
 speed[2] = 333; // 1/3 second
@@ -16,6 +18,7 @@ speed[3] = 200; // 1/5 second
 // default speed is medium
 speed_val = 1;
 var new_speed = speed[speed_val];
+
 length_lim = 99;
 var all_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -52,9 +55,9 @@ function update_letter() {
 	if(all_letters.indexOf(word.charAt(i)) >= 0) {
 		// check for double letter
 		if(word.charAt(i) == word.charAt(i - 1)) {
-			eval("document.images['ASLalphabet'].src='images/" + word.charAt(i) + word.charAt(i++) + ".gif'");
+			document.images['ASLalphabet'].src = "images/" + word.charAt(i) + word.charAt(i++) + ".gif";
 		} else {
-			eval("document.images['ASLalphabet'].src='images/" + word.charAt(i++) + ".gif'");
+			document.images['ASLalphabet'].src = "images/" + word.charAt(i++) + ".gif";
 		}
 	} else {
 		document.images['ASLalphabet'].src = "images/blank.gif";
