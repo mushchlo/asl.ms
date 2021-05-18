@@ -16,8 +16,7 @@ speed[1] = 666; // 2/3 second
 speed[2] = 333; // 1/3 second
 speed[3] = 200; // 1/5 second
 // default speed is medium
-speed_val = 1;
-var new_speed = speed[speed_val];
+var new_speed = speed[1];
 
 length_lim = 99;
 var all_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -110,34 +109,38 @@ function check_word() {
 		}
 		return false;
 	}
-	ischecked = true;
+
+	if(document.forms[0].input.value == "") {
+		return false;
+	}
+
 	if(document.forms[0].input.value.toLowerCase() == word) {
 		iscorrect = true;
 		document.images['ASLalphabet'].src = "images/goodjob.png";
-		playing = false;
 		score++;
-		document.getElementById('scoretxt').innerHTML = String(score);
 	} else {
-		if(document.forms[0].input.value == "") {
-			play();
-		} else {
-			document.images['ASLalphabet'].src = "images/tryagain.png";
-			playing = false;
-			score--;
-			document.getElementById('scoretxt').innerHTML = String(score);
-		}
+		iscorrect = false;
+		document.images['ASLalphabet'].src = "images/tryagain.png";
+		score--;
 	}
+
+	ischecked = true;
+	playing = false;
+	document.getElementById('scoretxt').innerHTML = String(score);
 	document.asl_words.input.select();
+
 	return false;
 }
 
 function new_word() {
-	var isUsed = false;
+	var randNum;
+	var isUsed;
 	var k;
+
 	while (true) {
-		var rand = Math.random();
-		var randNum = Math.floor(rand * maxindex+1);
+		randNum = Math.floor(Math.random() * maxindex+1);
 		isUsed = false;
+
 		if (used_words.length >= maxindex) {
 			clear_used();
 		} else {
