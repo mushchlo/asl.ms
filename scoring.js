@@ -63,12 +63,12 @@ function update_letter() {
 	setTimeout("update_letter()", new_speed);
 }
 
-function change_speed(speed_val_arg) {
+function set_speed(speed_val_arg) {
 	new_speed = speed[speed_val_arg];
-	change_speed2();
+	play();
 }
 
-function change_speed2() {
+function play() {
 	playing = true;
 	iscorrect = false;
 	ischecked = false;
@@ -77,13 +77,13 @@ function change_speed2() {
 	update_letter();
 }
 
-function set_speed(speed_val_arg) {
+function change_speed(speed_val_arg) {
 	if (speed_val_arg == 0) {
 		new_speed *= 1.3;
 	} else if (speed_val_arg == 1) {
 		new_speed /= 1.3;
 	}
-	change_speed2();
+	play();
 }
 
 function set_length_lim(length_lim_arg) {
@@ -103,7 +103,7 @@ function check_word() {
 		if(iscorrect) {
 			new_word();
 		} else {
-			change_speed2();
+			play();
 		}
 		return false;
 	}
@@ -116,7 +116,7 @@ function check_word() {
 		document.getElementById('scoretxt').innerHTML = String(score);
 	} else {
 		if(document.forms[0].input.value == "") {
-			change_speed2();
+			play();
 		} else {
 			document.images['ASLalphabet'].src = "images/tryagain.png";
 			playing = false;
@@ -156,6 +156,6 @@ function new_word() {
 		newpage = false;
 		return;
 	} else {
-		change_speed2();
+		play();
 	}
 }
