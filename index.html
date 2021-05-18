@@ -1,0 +1,242 @@
+<html> 
+<head> 
+<meta http-equiv="pics-label" content='(pics-1.1 "http://www.icra.org/ratingsv02.html" comment "ICRAonline v2.0" l gen true for "http://www.lifeprint.com"  r (nz 1 vz 1 lz 1 oz 1 cz 1) "http://www.rsac.org/ratingsv01.html" l gen true for "http://www.lifeprint.com"  r (n 0 s 0 v 0 l 0))'> 
+<title>American Sign Language (ASL) Fingerspelling Tool</title> 
+<meta name="author" content="William Vicars"> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta http-equiv="Content-Language" content="en-us"> 
+<meta name="description" content="An American Sign Language Fingerspelling Practice Site."> 
+<meta name="keywords" content="American Sign Language, ASL, deaf, signing, fingerspelling"> 
+<meta name="robots" content="index,follow" /> 
+<META NAME="distribution" CONTENT="Global"> 
+<META NAME="revisit-after" CONTENT="30 days"> 
+<META NAME="copyright" CONTENT="Copyright 2006 Lifeprint.com"> 
+
+<script language="javascript" type="text/javascript" src="words.js"></script> 
+<script language="javascript" type="text/javascript" src="scoring.js"></script> 
+
+<base target="_parent"> 
+</head> 
+<body onload="new_word()" bgcolor="#000000" link="#FFFFFF" vlink="#FFFFFF" alink="#FF0000" topmargin=0 marginHEIGHT=0 leftmargin=0 rightmargin=0 style="color: #00FFFF"> 
+<table border="0" width="100%" id="table1"> 
+	<tr> 
+				<td align="center" valign="top"> 
+		<div align="center"> 
+		<form action="#" method="post" name="asl_words" id="asl_words" onsubmit="return check_word()"> 
+<p style="margin-top: 0; margin-bottom: 0"><font face="Arial">&nbsp;</p>
+<img src="images/blank.gif" alt="Click on NEW WORD (may take a moment to load)..." title="loading..." name="ASLalphabet" id="ASLalphabet" border="1" height="240" width="240"> 
+<br> 
+<input class="button" name="refresh" value="new word" accesskey="n" onclick="new_word()" type="button" style="color: #00FFFF; font-family: arial; border: 2px solid #000080; background-color: #000000">&nbsp;&nbsp;&nbsp; 
+<input class="button" value="replay" name="repeat" type="button" accesskey="r" onclick="play()" style="color: #00FFFF; font-family: arial; border: 2px solid #000080; background-color: #000000">&nbsp;&nbsp; 
+<hr color="#000080" noshade="noshade" size="1" width="290"> 
+<p style="margin-top: 0pt; margin-bottom: 0pt;">Type your answer here:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <br>  
+<br> 
+ 
+<input name="input" size="25" maxlength="20" tabindex="1" class="input" type="text" style="background-color: #00FFFF; font-size:14pt; font-family:Arial">&nbsp;&nbsp; 
+<input class="button" name="check" value="check" type="submit" style="color: #00FFFF; font-family: arial; border: 2px solid #000080; background-color: #000000"></p> 
+<hr color="#800080" noshade="noshade" size="1" width="290"> 
+<p style="margin-top: 0; margin-bottom: 0">  
+Maximum number of letters?&nbsp;&nbsp; 
+<input class="button" name="letters" value="3" onclick="set_length_lim(3)" type="radio"> 3&nbsp;&nbsp;
+<input class="button" name="letters" value="4" onclick="set_length_lim(4)" type="radio"> 4&nbsp;&nbsp;
+<input class="button" name="letters" value="5" onclick="set_length_lim(5)" type="radio"> 5&nbsp;&nbsp;
+<input class="button" name="letters" value="6" onclick="set_length_lim(6)" type="radio"> 6&nbsp; 
+<input class="button" name="letters" value="Any length" onclick="set_length_lim(99)" type="radio"> 
+any <p style="margin-top: 0; margin-bottom: 0"> 
+Set your speed: &nbsp; 
+<input class="button" name="speed" value="slow" accesskey="s" onclick="set_speed(0)" tabindex="2" type="radio"> slow&nbsp;&nbsp; 
+<input class="button" name="speed" value="medium" accesskey="m" onclick="set_speed(1)" type="radio" checked> medium&nbsp;&nbsp; 
+<input class="button" name="speed" value="fast" accesskey="f" onclick="set_speed(2)" type="radio"> fast&nbsp;&nbsp; 
+<input class="button" name="speed" value="Deaf" accesskey="d" onclick="set_speed(3)" type="radio"> Deaf</p> 
+<p style="margin-top: 0; margin-bottom: 0"> 
+Fine tune your speed: &nbsp; 
+<input class="button" name="slower" value="slower" onclick="change_speed(0)" tabindex="2" type="button" style="color: #00FFFF; font-family: arial; border: 2px solid #000080; background-color: #000000">&nbsp;&nbsp; 
+<input class="button" name="faster" value="faster" onclick="change_speed(1)" type="button" style="color: #00FFFF; font-family: arial; border: 2px solid #000080; background-color: #000000"><p style="margin-top: 0; margin-bottom: 0"> 
+<p>Your score <b id='scoretxt'>0</b> <br>
+&nbsp;</p></div>
+<p align="center"> 
+</form> 
+<font color="#FFFF00">Announcements: <br>
+&#9679; This ASL.ms fingerspelling tool is now 
+available optimized for your IPhone or IPAD:&nbsp; </font>
+<a rel="nofollow" target="_blank" href="https://itunes.apple.com/us/app/asl-fingerspelling-lifeprint.com/id605558017?mt=8">
+<b><font color="#6699FF" size="4">CLICK HERE</font></b><span style="text-decoration: none">
+<font color="#FFFF00" size="2">(To go to the iTunes store)</font></span></a><br>
+<font color="#FFFF00">&#9679; This fingerspelling tool and over 75 <i>MORE</i> tools are 
+available for your Android Smartphone. Visit <b> <a rel="nofollow" target="_blank" href="http://asl.tc">
+<font color="#6699FF">http://asl.tc</font></a></b> for more info.<br>
+&#9679; This fingerspelling tool is available for your desktop computer (offline) as 
+part of Dr. Bill's &quot;<b><a href="sales/fingerspellingcd.htm"><font color="#6699FF">SuperDisk</font></a></b>&quot;</font><br>
+&nbsp;</td> 
+</tr> 
+</table> 
+<p align="center" style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+<div align="center">
+<table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" id="table2">
+	<tr>
+		<td style="border-right-style: solid; border-right-width: 1px">
+		<p align="left" style="margin-top: 0; margin-bottom: 0">
+		&nbsp;<p align="left" style="margin-top: 0; margin-bottom: 0">
+		<b><font face="Arial"> 
+
+		<a target="_parent" href="shapes.htm">Common Letter Combinations</a></font></b><br>
+&nbsp;<p align="left" style="margin-top: 0; margin-bottom: 0">
+		<b><font face="Arial"> 
+
+		<a href="spellit_large.htm">Spell this to me</a>&nbsp;<br>
+&nbsp;</font></b><p align="left" style="margin-top: 0; margin-bottom: 0">
+		<b><font face="Arial"> 
+
+		<a target="_parent" href="images2/abcslideshow.htm">ABC Slideshow</a>&nbsp;&nbsp;<br>
+&nbsp;</font></b><p align="left" style="margin-top: 0; margin-bottom: 0">
+		<b><font face="Arial"> 
+
+<a target="_blank" href="http://www.lifeprint.com/asl101/topics/wallpaper1.htm">Sign 
+Language Charts (fingerspelling)</a></font></b>&nbsp;&nbsp;<p align="left" style="margin-top: 0; margin-bottom: 0">
+		<br>
+		<b><font face="Arial"> 
+
+		<a target="_blank" href="http://www.lifeprint.com">American Sign 
+		Language (ASL)</a>&nbsp;</font></b><p align="left" style="margin-top: 0; margin-bottom: 0">
+		<br>
+		<b><font face="Arial"> 
+
+<a target="_blank" href="http://www.lifeprint.com/asl101/pages-layout/gallaudettruetypefont.htm">Fingerspelling Font</a></font></b><p align="left" style="margin-top: 0; margin-bottom: 0">
+		&nbsp;</td>
+		<td width="380" style="border-left-style: solid; border-left-width: 1px">
+		<p align="center" style="margin-top: 0; margin-bottom: 0">
+		&nbsp;
+		<script type="text/javascript"><!--
+google_ad_client = "ca-pub-2513564923850231";
+/* 300 x 250 - ASL.ms */
+google_ad_slot = "4939813730";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+
+</td>
+	</tr>
+</table>
+</div>
+<p align="center" style="margin-top: 0; margin-bottom: 0"> 
+
+<font face="Arial"> 
+
+&nbsp;</font></p>
+<p align="center" style="margin-top: 0; margin-bottom: 0"> 
+
+&nbsp;</p>
+<p align="center" style="margin-top: 0; margin-bottom: 0"> 
+
+<font face="Arial">Keyboard shortcuts for the Fingerspelling tool:<br>
+&nbsp;</font></p>
+<p align="center" style="margin-top: 0; margin-bottom: 0"> 
+
+<font face="Arial"> 
+
+Alt-n -- load a new word<br>
+Alt-r -- review the fingerspelling<br>
+Alt-s -- slow speed<br>
+Alt-m -- medium speed<br>
+Alt-f -- fast speed<br>
+Alt-d -- Deaf speed<br>
+&nbsp;</p>
+
+<hr>
+<p align="center" style="margin-top: 0; margin-bottom: 0">&nbsp;</p> 
+
+	<blockquote>
+		<p align="left" style="margin-top: 0; margin-bottom: 0">Hello :)<br>Welcome!&nbsp; 
+		<br>I encourage sign language students to find a qualified local Deaf tutor or American 
+		Sign Language (ASL)&nbsp; instructor to help you learn ASL or fingerspelling.&nbsp; This 
+		ASL fingerspelling site is a little tool I put together to help my 
+		college ASL students 
+	get some receptive fingerspelling practice. It isn't perfect, but it seems to help so I figured I'd share it with the world. If it is of use to you, great! <br>I wish you the very best!<br>Cordially,<br>- 
+		Dr. Bill Vicars <br>
+		Lifeprint.com<br>
+		<br>p.s. &nbsp;If your browser is slow and reloads this page each time you 
+		play a new word you might want to make sure your browser is set to get 
+	the images from its local cache (memory) - instead of downloading them for 
+		each word. If you are using the &quot;Internet Explorer&quot; browser here are instructions: Find the &quot;Tools&quot; menu then go to &quot;Internet Options&quot; &gt; 
+	General &gt; Browsing History &gt; Settings &gt; Temporary Internet Files &gt; &quot;Check for newer versions of stored pages,&quot; choose &quot;Automatically.&quot;&nbsp;&nbsp; That will load the images from your computer's memory 
+(cache) by default and will only download the images again if needed.&nbsp;&nbsp; </p>
+
+		<p align="left" style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+		<p align="left" style="margin-top: 0; margin-bottom: 0">&nbsp;</p>
+		<p align="left" style="margin-top: 0; margin-bottom: 0">
+		To learn more about:&nbsp;  
+		<a href="http://www.lifeprint.com">ASL</a>, (American Sign Language) Deaf Culture, and fingerspelling -- visit www.Lifeprint.com. </p>
+</blockquote>
+	</blockquote> </font> 
+	<script language="javascript">
+<!--  
+Preload1 = new Image(); Preload1.src = "images/a.gif";
+Preload2 = new Image(); Preload2.src = "images/b.gif";
+Preload3 = new Image(); Preload3.src = "images/c.gif";
+Preload4 = new Image(); Preload4.src = "images/d.gif";
+Preload5 = new Image(); Preload5.src = "images/e.gif";
+Preload6 = new Image(); Preload6.src = "images/f.gif";
+Preload7 = new Image(); Preload7.src = "images/g.gif";
+Preload8 = new Image(); Preload8.src = "images/h.gif";
+Preload9 = new Image(); Preload9.src = "images/i.gif";
+Preload10 = new Image(); Preload10.src = "images/j.gif";
+Preload11 = new Image(); Preload11.src = "images/k.gif";
+Preload12 = new Image(); Preload12.src = "images/l.gif";
+Preload13 = new Image(); Preload13.src = "images/m.gif";
+Preload14 = new Image(); Preload14.src = "images/n.gif";
+Preload15 = new Image(); Preload15.src = "images/o.gif";
+Preload16 = new Image(); Preload16.src = "images/p.gif";
+Preload17 = new Image(); Preload17.src = "images/q.gif";
+Preload18 = new Image(); Preload18.src = "images/r.gif";
+Preload19 = new Image(); Preload19.src = "images/s.gif";
+Preload20 = new Image(); Preload20.src = "images/t.gif";
+Preload21 = new Image(); Preload21.src = "images/u.gif";
+Preload22 = new Image(); Preload22.src = "images/v.gif";
+Preload23 = new Image(); Preload23.src = "images/w.gif";
+Preload24 = new Image(); Preload24.src = "images/x.gif";
+Preload25 = new Image(); Preload25.src = "images/y.gif";
+Preload26 = new Image(); Preload26.src = "images/z.gif";
+Preload27 = new Image(); Preload27.src = "images/aa.gif";
+Preload28 = new Image(); Preload28.src = "images/bb.gif";
+Preload29 = new Image(); Preload29.src = "images/cc.gif";
+Preload30 = new Image(); Preload30.src = "images/dd.gif";
+Preload31 = new Image(); Preload31.src = "images/ee.gif";
+Preload32 = new Image(); Preload32.src = "images/ff.gif";
+Preload33 = new Image(); Preload33.src = "images/gg.gif";
+Preload34 = new Image(); Preload34.src = "images/hh.gif";
+Preload35 = new Image(); Preload35.src = "images/ii.gif";
+Preload36 = new Image(); Preload36.src = "images/jj.gif";
+Preload37 = new Image(); Preload37.src = "images/kk.gif";
+Preload38 = new Image(); Preload38.src = "images/ll.gif";
+Preload39 = new Image(); Preload39.src = "images/mm.gif";
+Preload40 = new Image(); Preload40.src = "images/nn.gif";
+Preload41 = new Image(); Preload41.src = "images/oo.gif";
+Preload42 = new Image(); Preload42.src = "images/pp.gif";
+Preload43 = new Image(); Preload43.src = "images/qq.gif";
+Preload44 = new Image(); Preload44.src = "images/rr.gif";
+Preload45 = new Image(); Preload45.src = "images/ss.gif";
+Preload46 = new Image(); Preload46.src = "images/tt.gif";
+Preload47 = new Image(); Preload47.src = "images/uu.gif";
+Preload48 = new Image(); Preload48.src = "images/vv.gif";
+Preload49 = new Image(); Preload49.src = "images/ww.gif";
+Preload50 = new Image(); Preload50.src = "images/xx.gif";
+Preload51 = new Image(); Preload51.src = "images/yy.gif";
+Preload52 = new Image(); Preload52.src = "images/zz.gif";
+Preload53 = new Image(); Preload53.src = "images/goodjob.png";
+Preload54 = new Image(); Preload54.src = "images/tryagain.png";
+// -->
+</script>
+
+<!--Special thanks to Gail Halverson--> 
+<!--Special thanks to Tim Cropper--> 
+<!--Special thanks to John McAfee--> 
+<!--Scorekeeping by John Feagans--> 
+<!--Special thanks to Tim Whitehouse--> 
+
+</body> 
+</html> 
