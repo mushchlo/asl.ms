@@ -8,50 +8,58 @@ var playing;
 var iscorrect;
 var ischecked;
 
+var length_lim = 99;
 var speedvals = [ 1000, 666, 333, 200 ];
 var play_speed = speedvals[1];
 // in ms, default speed is medium
 
-length_lim = 99;
 
 // sort by word length
 // if you don't like the delay then sort the list in the words.js file and remove this sort
 words.sort((a,b) => a.length - b.length);
 var maxindex = count_available(words, length_lim);
 
-function inalphabet(character) {
+
+function inalphabet(character)
+{
 	return (/[a-zA-Z]/).test(character);
 }
 
-function sleep(ms) {
+function sleep(ms)
+{
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function updateScore() {
+function updateScore()
+{
 	document.getElementById('scoretxt').innerHTML = String(score);
 }
 
 // returns the number of words with word length <= maxlength
 // assumes wordlist is sorted by length, shortest words first
-function count_available(wordlist, maxlength) {
-	for (var i = 0; i < wordlist.length && wordlist[i].length <= maxlength; i++) {}
+function count_available(wordlist, maxlength)
+{
+	var i = 0;
+	while(i < wordlist.length && wordlist[i].length <= maxlength)
+		i++;
 	return Math.max(0, i - 1);
 }
 
-
-function clear_used() {
+function clear_used()
+{
 	delete used_words;
 	used_words = new Array();
 }
 
-async function play() {
+async function play()
+{
 	var toplay;
 
 	if(playing)
 		return;
-
 	playing = true;
 	document.asl_words.input.focus();
+
 	for(var i = 0; i < word.length; i++){
 		toplay = word.charAt(i);
 		if(word.charAt(i) === word.charAt(i-1))
@@ -59,17 +67,18 @@ async function play() {
 		if(!inalphabet(toplay))
 			toplay = "blank";
 
-		document.images['ASLalphabet'].src = "images/" + toplay + ".gif";
+		document.images["ASLalphabet"].src = "images/" + toplay + ".gif";
 		await sleep(play_speed);
 	}
-	document.images['ASLalphabet'].src = "images/blank.gif";
+	document.images["ASLalphabet"].src = "images/blank.gif";
 	playing = false;
 }
 
-function change_speed(speed_val_arg) {
-	if (speed_val_arg == 0)
+function change_speed(speed_val_arg)
+{
+	if(speed_val_arg == 0)
 		play_speed *= 1.3;
-	else if (speed_val_arg == 1)
+	else if(speed_val_arg == 1)
 		play_speed /= 1.3;
 
 	score = 0;
@@ -77,12 +86,14 @@ function change_speed(speed_val_arg) {
 	play();
 }
 
-function set_speed(speed_val_arg) {
+function set_speed(speed_val_arg)
+{
 	play_speed = speedvals[speed_val_arg];
 	play();
 }
 
-function set_length_lim(length_lim_arg) {
+function set_length_lim(length_lim_arg)
+{
 	iscorrect = false;
 	ischecked = false;
 	length_lim = length_lim_arg;
@@ -95,25 +106,26 @@ function set_length_lim(length_lim_arg) {
 	new_word();
 }
 
-function check_word() {
-	if(ischecked) {
-		if(iscorrect) {
+function check_word()
+{
+	if(ischecked){
+		if(iscorrect){
 			new_word();
-		} else {
+		} else{
 			play();
 		}
 		return false;
 	}
 
-	if(document.forms[0].input.value == "") {
+	if(document.forms[0].input.value == ""){
 		return false;
 	}
 
-	if(document.forms[0].input.value.toLowerCase() == word) {
+	if(document.forms[0].input.value.toLowerCase() == word){
 		iscorrect = true;
 		document.images['ASLalphabet'].src = "images/goodjob.png";
 		score++;
-	} else {
+	} else{
 		iscorrect = false;
 		document.images['ASLalphabet'].src = "images/tryagain.png";
 		score--;
@@ -128,25 +140,23 @@ function check_word() {
 	return false;
 }
 
-function new_word() {
+function new_word()
+{
 	var randNum;
 	var isUsed;
 	var k;
 
-	while (true) {
+	while(true){
 		randNum = Math.floor(Math.random() * maxindex+1);
 		isUsed = false;
 
-		if (used_words.length >= maxindex) {
+		if (used_words.length >= maxindex)
 			clear_used();
-		} else {
-			for (k = 0; k < used_words.length; k++) {
-				if (randNum == used_words[k]) {
+		else
+			for (k = 0; k < used_words.length; k++)
+				if (randNum == used_words[k])
 					isUsed = true;
-				}
-			}
-		}
-		if (!isUsed) {
+		if(!isUsed){
 			used_words.push(randNum);
 			word = words[randNum].toLowerCase();
 			document.asl_words.input.focus();
@@ -154,10 +164,10 @@ function new_word() {
 			break;
 		}
 	}
-	if (newpage) {
+	if(newpage){
 		newpage = false;
 		return;
-	} else {
+	} else{
 		ischecked = false;
 		iscorrect = false;
 		play();
