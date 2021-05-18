@@ -1,6 +1,5 @@
 var word = "";
 var used_words = new Array();
-var score = 0;
 
 // boolean switches to control playback
 var newpage = true; // autostart first word (false = don't autostart)
@@ -41,6 +40,7 @@ function updateScore(func)
 function count_available(wordlist, maxlength)
 {
 	var i = 0;
+
 	while(i < wordlist.length && wordlist[i].length <= maxlength)
 		i++;
 	return Math.max(0, i - 1);
@@ -136,7 +136,6 @@ function check_word()
 function new_word()
 {
 	var randNum;
-	var isUsed;
 
 	while(true){
 		randNum = Math.floor(Math.random() * maxindex+1);
