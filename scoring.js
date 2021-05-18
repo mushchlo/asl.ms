@@ -1,5 +1,4 @@
 var word = "";
-var j = 0;
 var used_words = new Array();
 var score = 0;
 
@@ -43,7 +42,6 @@ function count_available(wordlist, maxlength) {
 function clear_used() {
 	delete used_words;
 	used_words = new Array();
-	j = 0;
 }
 
 async function play() {
@@ -149,7 +147,7 @@ function new_word() {
 			}
 		}
 		if (!isUsed) {
-			used_words[j++] = randNum;
+			used_words.push(randNum);
 			word = words[randNum].toLowerCase();
 			document.asl_words.input.focus();
 			document.forms[0].input.value = "";
