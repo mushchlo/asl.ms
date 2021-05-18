@@ -1,7 +1,7 @@
 var word = "";
 var i = 0;
 var j = 0;
-var speed = new Array();
+//var speedvals = new Array();
 var used_words = new Array();
 var score = 0;
 
@@ -11,12 +11,9 @@ var playing;
 var iscorrect;
 var ischecked;
 
-speed[0] = 1000; // 1 second
-speed[1] = 666; // 2/3 second
-speed[2] = 333; // 1/3 second
-speed[3] = 200; // 1/5 second
-// default speed is medium
-var new_speed = speed[1];
+var speedvals = [ 1000, 666, 333, 200 ];
+var play_speed = speedvals[1];
+// in ms, default speed is medium
 
 length_lim = 99;
 var all_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -62,11 +59,11 @@ function update_letter() {
 		document.images['ASLalphabet'].src = "images/blank.gif";
 		i++;
 	}
-	setTimeout("update_letter()", new_speed);
+	setTimeout("update_letter()", play_speed);
 }
 
 function set_speed(speed_val_arg) {
-	new_speed = speed[speed_val_arg];
+	play_speed = speedvals[speed_val_arg];
 	play();
 }
 
@@ -81,9 +78,9 @@ function play() {
 
 function change_speed(speed_val_arg) {
 	if (speed_val_arg == 0) {
-		new_speed *= 1.3;
+		play_speed *= 1.3;
 	} else if (speed_val_arg == 1) {
-		new_speed /= 1.3;
+		play_speed /= 1.3;
 	}
 	play();
 }
