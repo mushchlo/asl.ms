@@ -30,9 +30,10 @@ function sleep(ms)
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function updateScore()
+function updateScore(func)
 {
-	document.getElementById('scoretxt').innerHTML = String(score);
+	document.getElementById('scoretxt').innerHTML =
+		String(func(Number(document.getElementById('scoretxt').innerHTML)));
 }
 
 // returns the number of words with word length <= maxlength
@@ -81,14 +82,14 @@ function change_speed(speed_val_arg)
 	else if(speed_val_arg == 1)
 		play_speed /= 1.3;
 
-	score = 0;
-	updateScore();
+	updateScore(() => 0);
 	play();
 }
 
 function set_speed(speed_val_arg)
 {
 	play_speed = speedvals[speed_val_arg];
+	updateScore(() => 0);
 	play();
 }
 
@@ -101,8 +102,7 @@ function set_length_lim(length_lim_arg)
 	clear_used();
 	document.asl_words.input.focus();
 
-	score = 0;
-	updateScore();
+	updateScore(() => 0);
 	new_word();
 }
 
@@ -118,16 +118,15 @@ function check_word()
 	if(document.forms[0].input.value.toLowerCase() == word){
 		iscorrect = true;
 		document.images['ASLalphabet'].src = "images/goodjob.png";
-		score++;
+		updateScore((s) => s+1);
 	} else {
 		iscorrect = false;
 		document.images['ASLalphabet'].src = "images/tryagain.png";
-		score--;
+		updateScore((s) => s-1);
 	}
 
 	ischecked = true;
 	playing = false;
-	updateScore();
 	document.asl_words.input.select();
 	document.forms[0].input.value = "";
 
@@ -138,7 +137,6 @@ function new_word()
 {
 	var randNum;
 	var isUsed;
-	var k;
 
 	while(true){
 		randNum = Math.floor(Math.random() * maxindex+1);
@@ -156,7 +154,6 @@ function new_word()
 	}
 	if(newpage){
 		newpage = false;
-		return;
 	} else {
 		ischecked = false;
 		iscorrect = false;
