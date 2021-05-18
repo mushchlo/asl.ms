@@ -1,12 +1,10 @@
 var word = "";
-var i = 0;
 var j = 0;
-//var speedvals = new Array();
 var used_words = new Array();
 var score = 0;
 
 // boolean switches to control playback
-var newpage = false; // autostart first word (false = don't autostart)
+var newpage = true; // autostart first word (false = don't autostart)
 var playing;
 var iscorrect;
 var ischecked;
@@ -16,7 +14,23 @@ var play_speed = speedvals[1];
 // in ms, default speed is medium
 
 length_lim = 99;
-var all_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+// sort by word length
+// if you don't like the delay then sort the list in the words.js file and remove this sort
+words.sort((a,b) => a.length - b.length);
+var maxindex = count_available(words, length_lim);
+
+function inalphabet(character) {
+	return (/[a-zA-Z]/).test(character);
+}
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function updateScore() {
+	document.getElementById('scoretxt').innerHTML = String(score);
+}
 
 // returns the number of words with word length <= maxlength
 // assumes wordlist is sorted by length, shortest words first
@@ -25,9 +39,6 @@ function count_available(wordlist, maxlength) {
 	return Math.max(0, i - 1);
 }
 
-function sortWordlength(a, b) {
-	return a.length - b.length;
-}
 
 function clear_used() {
 	delete used_words;
@@ -35,31 +46,37 @@ function clear_used() {
 	j = 0;
 }
 
-// sort by word length
-// if you don't like the delay then sort the list in the words.js file and remove this sort
-words.sort(sortWordlength);
-var maxindex = count_available(words, length_lim);
+async function play() {
+	var toplay;
 
-function update_letter() {
-	if(!playing) {
+	if(playing)
 		return;
+
+	playing = true;
+	document.asl_words.input.focus();
+	for(var i = 0; i < word.length; i++){
+		toplay = word.charAt(i);
+		if(word.charAt(i) === word.charAt(i-1))
+			toplay = toplay + toplay;
+		if(!inalphabet(toplay))
+			toplay = "blank";
+
+		document.images['ASLalphabet'].src = "images/" + toplay + ".gif";
+		await sleep(play_speed);
 	}
-	if(i >= word.length) {
-		document.images['ASLalphabet'].src = "images/blank.gif";
-		return;
-	}
-	if(all_letters.indexOf(word.charAt(i)) >= 0) {
-		// check for double letter
-		if(word.charAt(i) == word.charAt(i - 1)) {
-			document.images['ASLalphabet'].src = "images/" + word.charAt(i) + word.charAt(i++) + ".gif";
-		} else {
-			document.images['ASLalphabet'].src = "images/" + word.charAt(i++) + ".gif";
-		}
-	} else {
-		document.images['ASLalphabet'].src = "images/blank.gif";
-		i++;
-	}
-	setTimeout("update_letter()", play_speed);
+	document.images['ASLalphabet'].src = "images/blank.gif";
+	playing = false;
+}
+
+function change_speed(speed_val_arg) {
+	if (speed_val_arg == 0)
+		play_speed *= 1.3;
+	else if (speed_val_arg == 1)
+		play_speed /= 1.3;
+
+	score = 0;
+	updateScore();
+	play();
 }
 
 function set_speed(speed_val_arg) {
@@ -67,33 +84,16 @@ function set_speed(speed_val_arg) {
 	play();
 }
 
-function play() {
-	playing = true;
-	iscorrect = false;
-	ischecked = false;
-	i = 0;
-	document.asl_words.input.focus();
-	update_letter();
-}
-
-function change_speed(speed_val_arg) {
-	if (speed_val_arg == 0) {
-		play_speed *= 1.3;
-	} else if (speed_val_arg == 1) {
-		play_speed /= 1.3;
-	}
-	play();
-}
-
 function set_length_lim(length_lim_arg) {
-	playing = true;
 	iscorrect = false;
 	ischecked = false;
-	i = 0;
 	length_lim = length_lim_arg;
 	maxindex = count_available(words, length_lim);
 	clear_used();
 	document.asl_words.input.focus();
+
+	score = 0;
+	updateScore();
 	new_word();
 }
 
@@ -123,8 +123,9 @@ function check_word() {
 
 	ischecked = true;
 	playing = false;
-	document.getElementById('scoretxt').innerHTML = String(score);
+	updateScore();
 	document.asl_words.input.select();
+	document.forms[0].input.value = "";
 
 	return false;
 }
@@ -149,9 +150,9 @@ function new_word() {
 		}
 		if (!isUsed) {
 			used_words[j++] = randNum;
-			word = words[randNum];
-			document.forms[0].input.value = "";
+			word = words[randNum].toLowerCase();
 			document.asl_words.input.focus();
+			document.forms[0].input.value = "";
 			break;
 		}
 	}
@@ -159,6 +160,8 @@ function new_word() {
 		newpage = false;
 		return;
 	} else {
+		ischecked = false;
+		iscorrect = false;
 		play();
 	}
 }
