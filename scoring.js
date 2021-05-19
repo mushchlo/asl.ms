@@ -3,8 +3,7 @@ var used_words = new Array();
 
 // boolean switches to control playback
 var newpage = true; // autostart first word (false = don't autostart)
-var play_id;
-var c;
+var playing;
 var iscorrect;
 var ischecked;
 
@@ -53,48 +52,51 @@ function clear_used()
 	used_words = new Array();
 }
 
-function playLetter(str, letter)
+async function play()
 {
 	var toplay;
 
-	clearTimeout(play_id);
-	if(letter >= str.length){
-		document.images["ASLalphabet"].src = "images/blank.gif";
+	if(playing)
 		return;
-	}
-
-	toplay = str.charAt(letter);
-	if(!inalphabet(toplay))
-		toplay = "blank";
-	else if(toplay === str.charAt(letter-1))
-		toplay = toplay + toplay;
-	document.images["ASLalphabet"].src = "images/" + toplay + ".gif";
-
-	play_id = setTimeout(playLetter, play_speed, str, letter+1);
-}
-
-function play(str)
-{
+	playing = true;
 	document.asl_words.input.focus();
-	playLetter(str, 0);
+
+	for(var i = 0; i < word.length; i++){
+		toplay = word.charAt(i);
+		if(word.charAt(i) === word.charAt(i-1))
+			toplay = toplay + toplay;
+		if(!inalphabet(toplay))
+			toplay = "blank";
+
+		document.images["ASLalphabet"].src = "images/" + toplay + ".gif";
+		await sleep(play_speed);
+	}
+	document.images["ASLalphabet"].src = "images/blank.gif";
+	playing = false;
 }
 
-function change_speed(speedFunc)
+function change_speed(speed_val_arg)
 {
-	play_speed = speedFunc(play_speed);
+	if(speed_val_arg == 0)
+		play_speed *= 1.3;
+	else if(speed_val_arg == 1)
+		play_speed /= 1.3;
+
 	updateScore(() => 0);
-	play(word);
+	play();
 }
 
 function set_speed(speed_val_arg)
 {
 	play_speed = speedvals[speed_val_arg];
 	updateScore(() => 0);
-	play(word);
+	play();
 }
 
 function set_length_lim(length_lim_arg)
 {
+	iscorrect = false;
+	ischecked = false;
 	length_lim = length_lim_arg;
 	maxindex = count_available(words, length_lim);
 	clear_used();
@@ -108,10 +110,10 @@ function check_word()
 {
 	if(ischecked && iscorrect){
 		new_word();
-		return false;
+		return;
 	}
 	if(document.forms[0].input.value == "")
-		return false;
+		return;
 
 	if(document.forms[0].input.value.toLowerCase() == word){
 		iscorrect = true;
@@ -124,10 +126,9 @@ function check_word()
 	}
 
 	ischecked = true;
+	playing = false;
 	document.asl_words.input.select();
 	document.forms[0].input.value = "";
-
-	return false;
 }
 
 function new_word()
@@ -153,6 +154,6 @@ function new_word()
 	} else {
 		ischecked = false;
 		iscorrect = false;
-		play(word);
+		play();
 	}
 }
