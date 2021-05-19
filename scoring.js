@@ -24,11 +24,6 @@ function inalphabet(character)
 	return (/[a-zA-Z]/).test(character);
 }
 
-function sleep(ms)
-{
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function updateScore(func)
 {
 	document.getElementById('scoretxt').innerHTML =
