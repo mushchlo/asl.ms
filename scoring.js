@@ -3,7 +3,6 @@ var used_words = new Array();
 
 // boolean switches to control playback
 var newpage = true; // autostart first word (false = don't autostart)
-var playing;
 var play_id;
 var iscorrect;
 var ischecked;
@@ -100,8 +99,6 @@ function set_speed(speed_val_arg)
 
 function set_length_lim(length_lim_arg)
 {
-	iscorrect = false;
-	ischecked = false;
 	length_lim = length_lim_arg;
 	maxindex = count_available(words, length_lim);
 	clear_used();
@@ -127,7 +124,6 @@ function check_word()
 	}
 
 	ischecked = true;
-	playing = false;
 	document.asl_words.input.select();
 	document.forms[0].input.value = "";
 }
