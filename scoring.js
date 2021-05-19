@@ -125,7 +125,6 @@ function new_word()
 
 	while(true){
 		randNum = Math.floor(Math.random() * maxindex+1);
-		isUsed = false;
 
 		if (used_words.length >= maxindex)
 			clear_used();
