@@ -74,13 +74,9 @@ function play()
 	showLetter(word, 0);
 }
 
-function change_speed(speed_val_arg)
+function change_speed(speedFunc)
 {
-	if(speed_val_arg == 0)
-		play_speed *= 1.3;
-	else if(speed_val_arg == 1)
-		play_speed /= 1.3;
-
+	play_speed = speedFunc(play_speed);
 	updateScore(() => 0);
 	play();
 }
