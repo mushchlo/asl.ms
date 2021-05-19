@@ -4,6 +4,7 @@ var used_words = new Array();
 // boolean switches to control playback
 var newpage = true; // autostart first word (false = don't autostart)
 var playing;
+var play_id;
 var iscorrect;
 var ischecked;
 
@@ -52,27 +53,31 @@ function clear_used()
 	used_words = new Array();
 }
 
-async function play()
+function showLetter(str, l)
 {
 	var toplay;
 
-	if(playing)
+	clearTimeout(play_id);
+	if(l >= str.length){
+		document.images["ASLalphabet"].src = "images/blank.gif";
 		return;
-	playing = true;
-	document.asl_words.input.focus();
-
-	for(var i = 0; i < word.length; i++){
-		toplay = word.charAt(i);
-		if(word.charAt(i) === word.charAt(i-1))
-			toplay = toplay + toplay;
-		if(!inalphabet(toplay))
-			toplay = "blank";
-
-		document.images["ASLalphabet"].src = "images/" + toplay + ".gif";
-		await sleep(play_speed);
 	}
-	document.images["ASLalphabet"].src = "images/blank.gif";
-	playing = false;
+
+	toplay = word.charAt(l);
+	if(!inalphabet(toplay))
+		toplay = "blank";
+	else if(toplay === word.charAt(l-1))
+		toplay = toplay + toplay;
+
+	document.images["ASLalphabet"].src = "images/" + toplay + ".gif";
+
+	play_id = setTimeout(showLetter, play_speed, str, l+1);
+}
+
+function play()
+{
+	document.asl_words.input.focus();
+	showLetter(word, 0);
 }
 
 function change_speed(speed_val_arg)
