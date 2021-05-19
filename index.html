@@ -50,8 +50,8 @@ Set your speed: &nbsp;
 <input class="button" name="speed" value="Deaf" accesskey="d" onclick="set_speed(3)" type="radio"> Deaf</p> 
 <p style="margin-top: 0; margin-bottom: 0"> 
 Fine tune your speed: &nbsp; 
-<input class="button" name="slower" value="slower" onclick="change_speed(0)" tabindex="2" type="button" style="color: #00FFFF; font-family: arial; border: 2px solid #000080; background-color: #000000">&nbsp;&nbsp; 
-<input class="button" name="faster" value="faster" onclick="change_speed(1)" type="button" style="color: #00FFFF; font-family: arial; border: 2px solid #000080; background-color: #000000"><p style="margin-top: 0; margin-bottom: 0"> 
+<input class="button" name="slower" value="slower" onclick="change_speed((s) => s * 1.3)" tabindex="2" type="button" style="color: #00FFFF; font-family: arial; border: 2px solid #000080; background-color: #000000">&nbsp;&nbsp; 
+<input class="button" name="faster" value="faster" onclick="change_speed((s) => s / 1.3)" type="button" style="color: #00FFFF; font-family: arial; border: 2px solid #000080; background-color: #000000"><p style="margin-top: 0; margin-bottom: 0"> 
 <p>Your score <b id='scoretxt'>0</b> <br>
 &nbsp;</p></div>
 <p align="center"> 

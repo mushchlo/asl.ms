@@ -3,7 +3,8 @@ var used_words = new Array();
 
 // boolean switches to control playback
 var newpage = true; // autostart first word (false = don't autostart)
-var playing;
+var play_id;
+var c;
 var iscorrect;
 var ischecked;
 
@@ -52,51 +53,48 @@ function clear_used()
 	used_words = new Array();
 }
 
-async function play()
+function playLetter(str, letter)
 {
 	var toplay;
 
-	if(playing)
+	clearTimeout(play_id);
+	if(letter >= str.length){
+		document.images["ASLalphabet"].src = "images/blank.gif";
 		return;
-	playing = true;
-	document.asl_words.input.focus();
-
-	for(var i = 0; i < word.length; i++){
-		toplay = word.charAt(i);
-		if(word.charAt(i) === word.charAt(i-1))
-			toplay = toplay + toplay;
-		if(!inalphabet(toplay))
-			toplay = "blank";
-
-		document.images["ASLalphabet"].src = "images/" + toplay + ".gif";
-		await sleep(play_speed);
 	}
-	document.images["ASLalphabet"].src = "images/blank.gif";
-	playing = false;
+
+	toplay = str.charAt(letter);
+	if(!inalphabet(toplay))
+		toplay = "blank";
+	else if(toplay === str.charAt(letter-1))
+		toplay = toplay + toplay;
+	document.images["ASLalphabet"].src = "images/" + toplay + ".gif";
+
+	play_id = setTimeout(playLetter, play_speed, str, letter+1);
 }
 
-function change_speed(speed_val_arg)
+function play(str)
 {
-	if(speed_val_arg == 0)
-		play_speed *= 1.3;
-	else if(speed_val_arg == 1)
-		play_speed /= 1.3;
+	document.asl_words.input.focus();
+	playLetter(str, 0);
+}
 
+function change_speed(speedFunc)
+{
+	play_speed = speedFunc(play_speed);
 	updateScore(() => 0);
-	play();
+	play(word);
 }
 
 function set_speed(speed_val_arg)
 {
 	play_speed = speedvals[speed_val_arg];
 	updateScore(() => 0);
-	play();
+	play(word);
 }
 
 function set_length_lim(length_lim_arg)
 {
-	iscorrect = false;
-	ischecked = false;
 	length_lim = length_lim_arg;
 	maxindex = count_available(words, length_lim);
 	clear_used();
@@ -126,7 +124,6 @@ function check_word()
 	}
 
 	ischecked = true;
-	playing = false;
 	document.asl_words.input.select();
 	document.forms[0].input.value = "";
 
@@ -156,6 +153,6 @@ function new_word()
 	} else {
 		ischecked = false;
 		iscorrect = false;
-		play();
+		play(word);
 	}
 }
