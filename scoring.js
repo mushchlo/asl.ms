@@ -113,6 +113,7 @@ function check_word()
 		iscorrect = true;
 		document.images['ASLalphabet'].src = "images/goodjob.png";
 		updateScore((s) => s+1);
+		setTimeout(new_word, play_speed);
 	} else {
 		iscorrect = false;
 		document.images['ASLalphabet'].src = "images/tryagain.png";
