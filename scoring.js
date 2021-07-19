@@ -102,8 +102,12 @@ function set_length_lim(length_lim_arg)
 
 function check_word()
 {
-	if((ischecked && iscorrect) || document.forms[0].input.value == "")
+	if(ischecked && iscorrect)
 		return;
+	if(document.forms[0].input.value == ""){
+		play();
+		return;
+	}
 
 	if(document.forms[0].input.value.toLowerCase() == word){
 		iscorrect = true;
