@@ -89,9 +89,8 @@ function set_speed(speed_val_arg)
 	play();
 }
 
-function set_length_lim(length_lim_arg)
+function set_length_lim(length_lim)
 {
-	length_lim = length_lim_arg;
 	maxindex = count_available(words, length_lim);
 	clear_used();
 	document.asl_words.input.focus();
