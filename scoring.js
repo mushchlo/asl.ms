@@ -2,7 +2,8 @@ var word = "";
 var used_words = new Array();
 
 // boolean switches to control playback
-var newpage = true; // autostart first word (false = don't autostart)
+var autostart = true; // autostart first word (false = don't autostart)
+var newpage = true;
 var play_id;
 var iscorrect;
 var ischecked;
@@ -136,7 +137,7 @@ function new_word()
 			break;
 		}
 	}
-	if(newpage){
+	if(newpage && !autostart){
 		newpage = false;
 	} else {
 		ischecked = false;
